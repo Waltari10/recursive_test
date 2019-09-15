@@ -26,15 +26,15 @@ canvas.height = window.innerHeight;
 
 const draw = () => {
   const startRadius = 10;
-  const maxLevel = 151;
-  const xMod = 12;
-  const yMod = 12;
-  const rotationMod = 6;
-  const scaleModifier = 0.965;
-  const startColor = Color({r: 255, g: 0, b: 0});
+  const maxLevel = 141;
+  const xMod = 11;
+  const yMod = 11;
+  const rotationMod = 4;
+  const scaleModifier = 0.967;
+  const startColor = Color({r: 0, g: 255, b: 0});
   const colorModifier = 5;
 
-  const locationVector = new Victor(canvas.width / 2, canvas.height / 1.5);
+  const locationVector = new Victor(canvas.width / 2, canvas.height / 2);
 
 
   const drawRecursiveCircle = (scale, rotation, location, level, color) => {
@@ -66,6 +66,9 @@ const draw = () => {
   };
 
   drawRecursiveCircle(1, 180, locationVector, maxLevel, startColor);
+  drawRecursiveCircle(1, 90, locationVector, maxLevel, startColor);
+  drawRecursiveCircle(1, 0, locationVector, maxLevel, startColor);
+  drawRecursiveCircle(1, -90, locationVector, maxLevel, startColor);
 };
 
 
