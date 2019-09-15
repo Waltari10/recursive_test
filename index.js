@@ -1,3 +1,5 @@
+const Victor = require('victor');
+const Color = require('color');
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -21,38 +23,49 @@ canvas.height = window.innerHeight;
 
 */
 
+
 const draw = () => {
-  const startRadius = 50;
-  const maxLevel = 1000;
-  const xMod = 40;
-  const yMod = 40;
-  const rotationMod = 5;
+  const startRadius = 10;
+  const maxLevel = 151;
+  const xMod = 12;
+  const yMod = 12;
+  const rotationMod = 6;
+  const scaleModifier = 0.965;
+  const startColor = Color({r: 255, g: 0, b: 0});
+  const colorModifier = 5;
 
-  const locationVector = new Victor(canvas.width / 1.3, canvas.height - canvas.height / 0.9);
+  const locationVector = new Victor(canvas.width / 2, canvas.height / 1.5);
 
 
-  const drawRecursiveCircle = (scale, rotation, location, level) => {
-    const newScale = scale * 0.99;
+  const drawRecursiveCircle = (scale, rotation, location, level, color) => {
+    const newScale = scale * scaleModifier;
     const newRotation = rotation + rotationMod;
+    const newLocation = location.clone();
+    const newColor = color.rotate(colorModifier);
 
     const xyModifierVector = new Victor(xMod, yMod);
     xyModifierVector.multiply(new Victor(newScale, newScale));
     xyModifierVector.rotateDeg(newRotation);
 
-    location.add(xyModifierVector);
+    newLocation.add(xyModifierVector);
 
+    ctx.strokeStyle = newColor.hex();
     ctx.beginPath();
-    ctx.arc(location.x, location.y, startRadius * newScale, 0, 2 * Math.PI);
+    ctx.arc(newLocation.x, newLocation.y, startRadius * newScale, 0, 2 * Math.PI);
     ctx.stroke();
 
     const newLevel = level - 1;
 
+    if (newLevel % 10 === 0 && newLevel > 0 && level !== maxLevel) {
+      drawRecursiveCircle(newScale, newRotation - 90, newLocation, newLevel, newColor);
+    }
+
     if (newLevel > 0) {
-      drawRecursiveCircle(newScale, newRotation, location, newLevel);
+      drawRecursiveCircle(newScale, newRotation, newLocation, newLevel, newColor);
     }
   };
 
-  drawRecursiveCircle(1, 0, locationVector, maxLevel);
+  drawRecursiveCircle(1, 180, locationVector, maxLevel, startColor);
 };
 
 

@@ -5,12 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint": "eslint"
+    "eslint": "eslint",
+    "webpack": "webpack --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^6.4.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint-config-google": "^0.14.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8"
+  },
+  "dependencies": {
+    "color": "^3.1.2",
+    "victor": "^1.1.0"
   }
 }
