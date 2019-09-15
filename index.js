@@ -28,36 +28,31 @@ const draw = () => {
   const yMod = 40;
   const rotationMod = 5;
 
-
-  let currentLevel = 1;
-
   const locationVector = new Victor(canvas.width / 1.3, canvas.height - canvas.height / 0.9);
-  let rotation = 0;
-  locationVector.rotateDeg(rotation);
 
 
-  const drawRecursiveCircle = (scale) => {
+  const drawRecursiveCircle = (scale, rotation, location, level) => {
     const newScale = scale * 0.99;
-    rotation = rotation + rotationMod;
+    const newRotation = rotation + rotationMod;
 
     const xyModifierVector = new Victor(xMod, yMod);
     xyModifierVector.multiply(new Victor(newScale, newScale));
-    xyModifierVector.rotateDeg(rotation);
+    xyModifierVector.rotateDeg(newRotation);
 
-    locationVector.add(xyModifierVector);
+    location.add(xyModifierVector);
 
     ctx.beginPath();
-    ctx.arc(locationVector.x, locationVector.y, startRadius * newScale, 0, 2 * Math.PI);
+    ctx.arc(location.x, location.y, startRadius * newScale, 0, 2 * Math.PI);
     ctx.stroke();
 
-    currentLevel++;
+    const newLevel = level - 1;
 
-    if (currentLevel !== maxLevel) {
-      drawRecursiveCircle(newScale);
+    if (newLevel > 0) {
+      drawRecursiveCircle(newScale, newRotation, location, newLevel);
     }
   };
 
-  drawRecursiveCircle(1);
+  drawRecursiveCircle(1, 0, locationVector, maxLevel);
 };
 
 
