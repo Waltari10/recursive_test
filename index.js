@@ -1,6 +1,7 @@
 const Victor = require('victor');
 const Color = require('color');
 
+const raf = requestAnimationFrame
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -57,18 +58,21 @@ const draw = () => {
     const newLevel = level - 1;
 
     if (newLevel % 10 === 0 && newLevel > 0 && level !== maxLevel) {
-      drawRecursiveCircle(newScale, newRotation - 90, newLocation, newLevel, newColor);
+
+      raf(() => drawRecursiveCircle(newScale, newRotation - 90, newLocation, newLevel, newColor));
     }
 
     if (newLevel > 0) {
-      drawRecursiveCircle(newScale, newRotation, newLocation, newLevel, newColor);
+      raf(() => drawRecursiveCircle(newScale, newRotation, newLocation, newLevel, newColor));
     }
   };
 
-  drawRecursiveCircle(1, 180, locationVector, maxLevel, startColor);
-  drawRecursiveCircle(1, 90, locationVector, maxLevel, startColor);
-  drawRecursiveCircle(1, 0, locationVector, maxLevel, startColor);
-  drawRecursiveCircle(1, -90, locationVector, maxLevel, startColor);
+  raf(() => {
+    drawRecursiveCircle(1, 180, locationVector, maxLevel, startColor);
+    drawRecursiveCircle(1, 90, locationVector, maxLevel, startColor);
+    drawRecursiveCircle(1, 0, locationVector, maxLevel, startColor);
+    drawRecursiveCircle(1, -90, locationVector, maxLevel, startColor);
+  });
 };
 
 
