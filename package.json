@@ -4,18 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --watch",
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint",
-    "webpack": "webpack --watch"
+    "webpack": "webpack",
+    "webpack:watch": "webpack --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^6.4.0",
     "eslint-config-google": "^0.14.0",
+    "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.8"
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-livereload-plugin": "^2.3.0"
   },
   "dependencies": {
     "color": "^3.1.2",

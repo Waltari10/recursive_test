@@ -4,8 +4,6 @@ const Color = require('color');
 const raf = requestAnimationFrame
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
 
 /*
     The first element determines the starting size.
@@ -26,17 +24,19 @@ canvas.height = window.innerHeight;
 
 
 const draw = () => {
-  const startRadius = 10;
-  const maxLevel = 141;
-  const xMod = 11;
-  const yMod = 11;
-  const rotationMod = 4;
+
+  const startRadius = 40;
+  
+  
+  const maxLevel = 130;
+  const xMod = 13;
+  const yMod = 13;
+  const rotationMod = 5.5;
   const scaleModifier = 0.967;
   const startColor = Color({r: 0, g: 255, b: 0});
   const colorModifier = 5;
 
-  const locationVector = new Victor(canvas.width / 2, canvas.height / 2);
-
+  const locationVector = new Victor(innerWidth / 2, innerHeight / 2);
 
   const drawRecursiveCircle = (scale, rotation, location, level, color) => {
     const newScale = scale * scaleModifier;
@@ -77,11 +77,11 @@ const draw = () => {
 
 
 const resizeCanvas = () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  draw();
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
 };
 
+draw();
 
 window.addEventListener('resize', resizeCanvas, false);
 resizeCanvas();
