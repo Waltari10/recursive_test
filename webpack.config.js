@@ -7,7 +7,7 @@ module.exports = {
   entry: './index.js',
   mode: 'development',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './docs'),
     filename: 'index_bundle.js',
   },
   plugins: [
